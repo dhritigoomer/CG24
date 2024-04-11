@@ -34,19 +34,19 @@ function handleColorSelection() {
 // ColoredPoint.js (c) 2012 matsuda
 // Vertex shader program
 var VSHADER_SOURCE =
-  'attribute vec4 a_Position;\n' +
-  'void main() {\n' +
-  '  gl_Position = a_Position;\n' +
-  '  gl_PointSize = 10.0;\n' +
-  '}\n';
+  `attribute vec4 a_Position;
+  void main() { +
+    gl_Position = a_Position;
+    gl_PointSize = 20.0;
+  }`
 
 // Fragment shader program
 var FSHADER_SOURCE =
-  'precision mediump float;\n' +
-  'uniform vec4 u_FragColor;\n' +  // uniform変数
-  'void main() {\n' +
-  '  gl_FragColor = u_FragColor;\n' +
-  '}\n';
+  `precision mediump float;
+  uniform vec4 u_FragColor; 
+  void main() {
+    gl_FragColor = u_FragColor;
+  }`
 
 function setupWebGL() {
   // Retrieve <canvas> element
@@ -88,7 +88,7 @@ function main() {
 
 
   // Register function (event handler) to be called on a mouse press
-  canvas.onmousedown = function(ev){ click(ev) };
+  canvas.onmousedown = click;
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
