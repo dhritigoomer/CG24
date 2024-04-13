@@ -22,28 +22,43 @@
 
     <br><br>
     <label for="drawing-mode">Drawing Mode:</label>
-    <input type="button" value="Squares" onclick="clearCanvas()"></input>
-    <input type="button" value="Triangles" onclick="clearCanvas()"></input>
-    <input type="button" value="Circles" onclick="clearCanvas()"></input>
+    <input type="button" value="Squares"></input>
+    <input type="button" value="Triangles"></input>
+    <input type="button" value="Circles"></input>
 
     <br><br>
     <label for="shape-color">Shape Color: </label>
     <br>
+    <button type="button" id='red-button'>Red</button>
+    <button type="button" id='green-button'>Green</button>
+    <!-- <input type="button" id="red-button">Red</input>
+    <input type="button" id="green-button">Green</input> -->
 
+
+    <p>
+    Red <input type="range" min = "0" max = "100" value = "100" class = "slider" id = "redSlide">
+
+    Green <input type="range" min = "0" max = "100" value = "100" class = "slider" id = "greenSlide">
+
+    Blue <input type="range" min = "0" max = "100" value = "100" class = "slider" id = "blueSlide">
+
+
+<!--
     <label for="shape-red">Red </label>
-    <input type="range" id="red" name="red" min="0" max="100" value="90" step="10" />
+    <input type="range" id="redSlide" name="red" min="0" max="100" value="100" step="1" />
 
     <label for="shape-green">Green </label>
-    <input type="range" id="green" name="green" min="0" max="100" value="90" step="10" />
+    <input type="range" id="greenSlide" name="green" min="0" max="100" value="0" step="1" />
 
     <label for="shape-blue">Blue </label>
-    <input type="range" id="blue" name="blue" min="0" max="100" value="90" step="10" />
+    <input type="range" id="blueSlide" name="blue" min="0" max="100" value="0" step="1" />
 
-    <input type="button" value="Check Color" onclick="handleColorSelection()"></input>
+    <input type="button" value="Check Color" onclick="handleColorSelection()"></input> -->
 
     <br><br>
-    <label for="shape-size">Shape Size: </label>
-    <input type="range" id="size" name="size" min="0" max="100" value="90" step="10" />
+    Shape Size: <input type="range" min = "5" max = "40" value = "0" class = "slider" id = "sizeSlide">
+    <!-- <label for="shape-size">Shape Size: </label>
+    <input type="range" id="size" name="size" min="0" max="100" value="90" step="10" /> -->
 
     <label for="shape-size">(Circles) Segment Count: </label>
     <input type="range" id="count" name="count" min="0" max="100" value="90" step="10" />
