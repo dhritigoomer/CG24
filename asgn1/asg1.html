@@ -10,7 +10,9 @@
       Please use a browser that supports "canvas"
     </canvas>
     <script src="asg1.js"></script>
-
+    <script src="Points.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
     <!-- load library -->
     <script src="lib/cuon-matrix-cse160.js"></script>
     <script src="lib/webgl-utils.js"></script>
@@ -18,13 +20,18 @@
     <script src="lib/cuon-utils.js"></script>
 
     <br><br>
-    <input type="button" value="Clear Canvas" onclick="clearCanvas()"></input>
+    <button type="button" id='clear-button'>Clear Canvas</button>
+
+    <p id="numdot"> XXX </p>
 
     <br><br>
     <label for="drawing-mode">Drawing Mode:</label>
-    <input type="button" value="Squares"></input>
+    <button type="button" id='square-button'>Squares</button>
+    <button type="button" id='triangle-button'>Triangles</button>
+    <button type="button" id='circle-button'>Circles</button>
+    <!-- <input type="button" value="Squares"></input>
     <input type="button" value="Triangles"></input>
-    <input type="button" value="Circles"></input>
+    <input type="button" value="Circles"></input> -->
 
     <br><br>
     <label for="shape-color">Shape Color: </label>
@@ -59,9 +66,9 @@
     Shape Size: <input type="range" min = "5" max = "40" value = "0" class = "slider" id = "sizeSlide">
     <!-- <label for="shape-size">Shape Size: </label>
     <input type="range" id="size" name="size" min="0" max="100" value="90" step="10" /> -->
-
-    <label for="shape-size">(Circles) Segment Count: </label>
-    <input type="range" id="count" name="count" min="0" max="100" value="90" step="10" />
+    (Circles) Segment Count: <input type="range" min = "5" max = "40" value = "0" class = "slider" id = "segmentSlide">
+    <!-- <label for="shape-size">(Circles) Segment Count: </label>
+    <input type="range" id="count" name="count" min="0" max="100" value="90" step="10" /> -->
 
   </body>
 </html>
