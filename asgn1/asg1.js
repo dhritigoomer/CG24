@@ -5,6 +5,9 @@ let a_Position;
 let u_FragColor;
 let u_Size;
 var g_shapesList = [];
+let g_game = false;
+let vx = 0;
+let vy = 0;
 
 const POINT = 0;
 const TRIANGLE = 1;
@@ -103,8 +106,11 @@ function addActionsForHtmlUI(){
   //my drawing
   document.getElementById('my-drawing').onclick = function() { g_shapesList = []; buildDrawing(); renderAllShapes();};
 
-}
+  // my Game
+  document.getElementById('my-game-start').onclick = function() { g_game = true; main(); g_shapesList = []; gl.clearColor(0.0, 0.0, 0.0, 1.0); renderAllShapes();};
+  document.getElementById('my-game-stop').onclick = function() { g_shapesList = []; gl.clearColor(0.0, 0.0, 0.0, 1.0); g_game = false; main();};
 
+}
 
 function click(ev) {
 
@@ -137,6 +143,66 @@ function click(ev) {
   // this.size = 5.0;
 
   renderAllShapes();
+}
+
+function catEvent(ev) {
+  [x1, y1] = convertCoordinatesEventToGL(ev);
+
+  let catFace = new Circle();
+  catFace.position = [x1, y1];
+  catFace.color = [1, 0.5, 0, 1];
+  catFace.size = 17;
+  catFace.segments = 30;
+  g_shapesList.push(catFace);
+
+  var d = (catFace.size)/200;
+
+  let x = catFace.position[0];
+  let y = catFace.position[1];
+
+  let ear1 = new drawMy();
+  let ear2 = new drawMy();
+
+  ear1.color = [1, 0.5, 0, 1];
+  ear2.color = [1, 0.5, 0, 1];
+
+  ear1.vertices = ([x, y, x - (d/2), y + (3/2)*d, x - d, y])
+  ear2.vertices = ([x, y, x + (d/2), y + (3/2)*d, x + d, y])
+
+  g_shapesList.push(ear1);
+  g_shapesList.push(ear2);
+
+  renderAllShapes();
+
+}
+function catdraw (vx, vy) {
+  let catFace = new Circle();
+  catFace.position = [vx, vy];
+  catFace.color = [1, 0.5, 0, 1];
+  catFace.size = 17;
+  catFace.segments = 30;
+  g_shapesList.push(catFace);
+
+  var d = (catFace.size)/200;
+
+  let x = catFace.position[1];
+  let y = catFace.position[0];
+
+  let ear1 = new drawMy();
+  let ear2 = new drawMy();
+
+  ear1.color = [1, 0.5, 0, 1];
+  ear2.color = [1, 0.5, 0, 1];
+
+  ear1.vertices = ([x, y, x - (d/2), y + (3/2)*d, x - d, y])
+  ear2.vertices = ([x, y, x + (d/2), y + (3/2)*d, x + d, y])
+
+  g_shapesList.push(ear1);
+  g_shapesList.push(ear2);
+
+  renderAllShapes();
+
+
 }
 
 function buildDrawing() {
@@ -191,120 +257,109 @@ function buildDrawing() {
     t10.vertices = ([0, -1, -0.25, -0.80, -0.5, -1]);
     g_shapesList.push(t10);
 
-    let seaweed = new drawMy();
     let x, y, d;
+    d = 0.15;
     x = -0.5;
     y = -1;
-    d = 0.15;
-    seaweed.color = [0.13, 0.77, 0.57, 1];
-    seaweed.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    g_shapesList.push(seaweed);
-    renderAllShapes();
 
-    let y1 = -1+(d/2);
-    seaweed.vertices = [x, y1, x+d, y1, x + (d/2), y1+ (d/2)];
-    g_shapesList.push(seaweed);
-    renderAllShapes();
+    let t23 = new drawMy(); // seaweed 1.1
+    t23.color = [0.13, 0.77, 0.57, 1];
+    t23.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+    y = -1+(d/2);
+    let t24 = new drawMy(); // seaweed 1.2
+    t24.color = [0.13, 0.77, 0.57, 1];
+    t24.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
 
     y = -1+d;
-    seaweed.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    g_shapesList.push(seaweed);
+    let t25 = new drawMy(); // seaweed 1.3
+    t25.color = [0.13, 0.77, 0.57, 1];
+    t25.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+    x = 0.5;
+    y = -1;
+
+    let t11 = new drawMy(); // seaweed 1.1
+    t11.color = [0.13, 0.77, 0.57, 1];
+    t11.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+    y = -1+(d/2);
+    let t12 = new drawMy(); // seaweed 1.2
+    t12.color = [0.13, 0.77, 0.57, 1];
+    t12.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+    y = -1+d;
+    let t13 = new drawMy(); // seaweed 1.3
+    t13.color = [0.13, 0.77, 0.57, 1];
+    t13.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+
+    let t14 = new drawMy(); // seaweed 2.1
+    t14.color = [0.13, 0.77, 0.57, 1];
+    t14.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+    y = -1+(d/2);
+    let t15 = new drawMy(); // seaweed 2.2
+    t15.color = [0.13, 0.77, 0.57, 1];
+    t15.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+    y = -1+d;
+    let t16 = new drawMy(); // seaweed 2.3
+    t16.color = [0.13, 0.77, 0.57, 1];
+    t16.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+
+    x = 0.5-d;
+    y = -1;
+    let t17 = new drawMy(); // seaweed 3.1
+    t17.color = [0.13, 0.77, 0.57, 1];
+    t17.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+    y = -1+(d/2);
+    let t18 = new drawMy(); // seaweed 3.2
+    t18.color = [0.13, 0.77, 0.57, 1];
+    t18.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+    y = -1+d;
+    let t19 = new drawMy(); // seaweed 3.3
+    t19.color = [0.13, 0.77, 0.57, 1];
+    t19.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+
+    x = -0.5 + d;
+    y = -1;
+    let t20 = new drawMy(); // seaweed 4.1
+    t20.color = [0.13, 0.77, 0.57, 1];
+    t20.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+    y = -1+(d/2);
+    let t21 = new drawMy(); // seaweed 4.2
+    t21.color = [0.13, 0.77, 0.57, 1];
+    t21.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+    y = -1+d;
+    let t22 = new drawMy(); // seaweed 4.3
+    t22.color = [0.13, 0.77, 0.57, 1];
+    t22.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
+
+
+    g_shapesList.push(t11);
+    g_shapesList.push(t12);
+    g_shapesList.push(t13);
+
+    g_shapesList.push(t14);
+    g_shapesList.push(t15);
+    g_shapesList.push(t16);
+
+    g_shapesList.push(t17);
+    g_shapesList.push(t18);
+    g_shapesList.push(t19);
+
+    g_shapesList.push(t20);
+    g_shapesList.push(t21);
+    g_shapesList.push(t22);
+
+    g_shapesList.push(t23);
+    g_shapesList.push(t24);
+    g_shapesList.push(t25);
+
     renderAllShapes();
-
-    // for (i = 0; i < 3; i++) {
-    //   g_shapesList.push(seaweed);
-    //   renderAllShapes();
-    // }
-
-    //
-    // let t11 = new drawMy(); // seaweed 1.1
-    // t11.color = [0.13, 0.77, 0.57, 1];
-    // t11.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    //
-    // y = -1+(d/2);
-    // let t12 = new drawMy(); // seaweed 1.2
-    // t12.color = [0.13, 0.77, 0.57, 1];
-    // t12.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    //
-    //
-    // y = -1+d;
-    // let t13 = new drawMy(); // seaweed 1.3
-    // t13.color = [0.13, 0.77, 0.57, 1];
-    // t13.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    //
-    // g_shapesList.push(t11);
-    // g_shapesList.push(t12);
-    // g_shapesList.push(t13);
-    //
-    // // second batch
-    // x = 0.5;
-    // y = -1;
-    // let t11 = new drawMy(); // seaweed 1.1
-    // t11.color = [0.13, 0.77, 0.57, 1];
-    // t11.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    //
-    // y = -1+(d/2);
-    // let t12 = new drawMy(); // seaweed 1.2
-    // t12.color = [0.13, 0.77, 0.57, 1];
-    // t12.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    //
-    //
-    // y = -1+d;
-    // let t13 = new drawMy(); // seaweed 1.3
-    // t13.color = [0.13, 0.77, 0.57, 1];
-    // t13.vertices = [x, y, x+d, y, x + (d/2), y+ (d/2)];
-    //
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    // y = -1+(d/2);
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    // y = -1+d;
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    //
-    //
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    // t10.vertices = ([0, -1, -0.25, -0.80, -0.5, -1]);
-    // g_shapesList.push(t10);
-    //
-    //
-    // // third batch
-    // x = 0.5-d;
-    // y = -1;
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    // y = -1+(d/2);
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    // y = -1+d;
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    //
-    // // fourth batch
-    // x = -0.5 + d;
-    // y = -1;
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    // y = -1+(d/2);
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-    // y = -1+d;
-    // drawTriangle([x, y, x+d, y, x + (d/2), y+ (d/2)]);
-
-
-
-
-
-
-    renderAllShapes();
-
-    // triangle1.position=[-0.335, 0.1];
-    // triangle1.color = [1.0, 1.0, 1.0, 1.0];
-    // triangle1.size = 20.0;
-    // triangle1.mine = 1;
-    // drawTriangle(triangle1);
-    // g_shapesList.push(triangle1);
-    // console.log(g_shapesList)
-    // renderAllShapes();
-    // drawTriangle([0, 0, 1/200, 1/200, 4/200, 4/200]);
-    // drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d]);
-    // g_shapesList.push(triangle1);
-    // drawTriangle([-175/200, 38/200, -140/200, 75/200, -140/200, 0]);
-
-
 }
 
 function convertCoordinatesEventToGL(ev) {
@@ -349,11 +404,23 @@ function main() {
   connectVariablesToGLSL();
   addActionsForHtmlUI();
 
-  // Register function (event handler) to be called on a mouse press
-  canvas.onmousedown = click;
-  // canvas.onmousemove = click;
-  canvas.onmousemove = function(ev) {if (ev.buttons == 1) { click(ev)}}
-
+  if (g_game == true) {
+    // Register function (event handler) to be called on a mouse press
+    canvas.onmousedown = catEvent;
+    // canvas.onmousemove = click;
+    canvas.onmousemove = function(ev) { catEvent; g_shapesList = []; renderAllShapes();}
+    //function(ev) { g_shapesList = []; renderAllShapes(); catEvent;}
+    // canvas.onmousemove = catEvent();
+    // console.log("enter")
+  }
+  else {
+    // Register function (event handler) to be called on a mouse press
+    canvas.onmousedown = click;
+    // canvas.onmousemove = click;
+    canvas.onmousemove = function(ev) {if (ev.buttons == 1) { click(ev)}}
+    // canvas.onmousemove = catEvent();
+  }
+  console.log("run")
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -361,6 +428,3 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
 }
-
-
-// window.onload = main;
