@@ -4,37 +4,11 @@ let gl;
 let a_Position;
 let u_FragColor;
 let u_Size;
-
-function clearCanvas() {
-  // var canvas = document.getElementById('webgl');
-  // var ctx = canvas.getContext('2d');
-  // ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
-  // ctx.fillRect(0, 0, canvas.width, canvas.height);
-  // Specify the color for clearing <canvas>
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
-
-  // Clear <canvas>
-  gl.clear(gl.COLOR_BUFFER_BIT);
-
-  // g_points = [];
-}
-
-// function handleColorSelection() {
-//   var r = document.getElementById('red').value;
-//   var g = document.getElementById('green').value;
-//   var b = document.getElementById('blue').value;
-//   console.log(r);
-//   console.log(g);
-//   console.log(b);
-//   // ctx.strokeStyle = 'rgb(r, g, b)';
-//
-//   var size = document.getElementById('size').value;
-//   var count = document.getElementById('count').value;
-// }
-//
+var g_shapesList = [];
 
 // ColoredPoint.js (c) 2012 matsuda
+// Crediting Professor James Davis for functionality in the file
+
 // Vertex shader program
 var VSHADER_SOURCE =
   `attribute vec4 a_Position;
@@ -102,11 +76,12 @@ let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_selectedSize = 5.0;
 let g_selectedType = POINT;
 let g_selectedSegments = 10;
+// let g_myDrawing = 0;
 
 function addActionsForHtmlUI(){
   // button events: shape type
-  document.getElementById('green-button').onclick = function() { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
-  document.getElementById('red-button').onclick = function() { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+  // document.getElementById('green-button').onclick = function() { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
+  // document.getElementById('red-button').onclick = function() { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
 
   // slider events!
   document.getElementById('redSlide').addEventListener('mouseup', function() {g_selectedColor[0] = (this.value)/100;   });
@@ -119,12 +94,15 @@ function addActionsForHtmlUI(){
   document.getElementById('sizeSlide').addEventListener('mouseup', function() {g_selectedSize = this.value; });
 
   //set clear button
-  document.getElementById('clear-button').onclick = function () { g_shapesList = []; renderAllShapes(); };
+  document.getElementById('clear-button').onclick = function () { g_shapesList = []; gl.clearColor(0.0, 0.0, 0.0, 1.0); renderAllShapes(); };
 
   // set shape selector buttons
   document.getElementById('square-button').onclick = function() { g_selectedType = POINT; };
   document.getElementById('triangle-button').onclick = function() { g_selectedType = TRIANGLE; };
   document.getElementById('circle-button').onclick = function() { g_selectedType = CIRCLE; };
+
+  //my drawing
+  document.getElementById('my-drawing').onclick = function() { g_shapesList = []; buildDrawing(); renderAllShapes();};
 
 }
 
@@ -146,7 +124,6 @@ function main() {
 
 }
 
-  var g_shapesList = [];
 
   function click(ev) {
 
@@ -173,7 +150,29 @@ function main() {
     // point.size = g_selectedSize;
     // g_shapesList.push(point);
 
+    // this.type = 'triangle';
+    // this.position = [0.0, 0.0, 0.0];
+    // this.color = [1.0, 1.0, 1.0, 1.0];
+    // this.size = 5.0;
+
     renderAllShapes();
+  }
+
+  function buildDrawing() {
+      gl.clearColor(0.52, 0.91, 0.92, 1);
+      let triangle1 = new Triangle();
+      triangle1.position=[-0.335, 0.1];
+      triangle1.color = [1.0, 1.0, 1.0, 1.0];
+      triangle1.size = 20.0;
+      triangle1.mine = 1;
+      // drawTriangle(triangle1);
+      // g_shapesList.push(triangle1);
+      // console.log(g_shapesList)
+      // renderAllShapes();
+      // drawTriangle([0, 0, 1/200, 1/200, 4/200, 4/200]);
+      // drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d]);
+      g_shapesList.push(triangle1);
+
   }
 
   function convertCoordinatesEventToGL(ev) {
